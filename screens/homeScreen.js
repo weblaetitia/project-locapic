@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, ImageBackground } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'; 
 import { Input, Button } from 'react-native-elements';
 
-export default function HomeScreen({navigation}) {
+import {connect} from 'react-redux'
+
+function HomeScreen({navigation, onSubmitPseudo}) {
+
+  const [pseudo, setPseudo] = useState('')
 
   return (
     <ImageBackground source={require('../assets/home.jpg')} style={styles.image}>
@@ -13,9 +17,11 @@ export default function HomeScreen({navigation}) {
         leftIcon={
           <FontAwesome name="user" size={24} color="tomato" />
         }
+        // get username
+        onChangeText={(e) => setPseudo(e)}
       />
     <Button
-    onPress={() => navigation.navigate('Map')}
+    onPress={() => {onSubmitPseudo(pseudo); navigation.navigate('Map')}}
       icon={
         <FontAwesome name="arrow-right" size={24} color="#fff" style={styles.arrow} />
       }
@@ -37,3 +43,20 @@ const styles = StyleSheet.create({
     marginRight: 10
   }
 })
+
+
+/* REDUX */
+function mapDispatchToProps(dispatch) {
+  return{
+    onSubmitPseudo: function(pseudo) {
+      dispatch( {type: 'savePseudo', pseudo: pseudo})
+    }
+  }
+}
+
+export default connect(
+  null, 
+  mapDispatchToProps
+)(HomeScreen);
+
+/* REDUX  */

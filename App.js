@@ -5,17 +5,25 @@ import { NavigationContainer } from '@react-navigation/native';
 // import des composants
 import HomeScreen from './screens/homeScreen'
 import BottomTabNavigator from './components/BottomNav'
-import MapScreen from './screens/mapScreen'
-import ChatScreen from './screens/chatScreen'
 
 // modules
 import { createStackNavigator } from '@react-navigation/stack';
 
+// redux
+import { Provider } from "react-redux";
+import { createStore, combineReducers } from "redux";
+import pseudo from './reducers/pseudo.reducer'
+
+const store = createStore(combineReducers({ pseudo }));
+
+
 function App() {
   return (
-    <NavigationContainer>
-      <MyStack headerMode='none' />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <MyStack headerMode='none' />
+      </NavigationContainer>
+    </Provider>
   );
 }
 
