@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 // import des composants
 import HomeScreen from './screens/homeScreen'
+import BottomTabNavigator from './components/BottomNav'
 import MapScreen from './screens/mapScreen'
 import ChatScreen from './screens/chatScreen'
 
@@ -24,7 +25,7 @@ function MyStack() {
   return (
     <Stack.Navigator headerMode="none">
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Map" component={MapScreen} />
+      <Stack.Screen name="Map" component={BottomTabNavigator} />
     </Stack.Navigator>
   );
 }
