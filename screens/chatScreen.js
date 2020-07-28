@@ -69,10 +69,12 @@ export default function ChatScreen() {
       }
       </ScrollView>
       <KeyboardAvoidingView behavior="padding" enabled style={styles.fullWidth} >
-        <Input placeholder='type your message here' containerStyle={{width:'80%', marginTop:'10px', marginBottom:'10px'}} />
-        <Button icon={ <MaterialCommunityIcons name="send" size={15} color="white" />}
+        <Input placeholder='type your message here' containerStyle={{width:'80%',marginVertical:10, marginHorizontal:'auto'}} />
+        <Button icon={ <MaterialCommunityIcons name="send" size={15} color="white" style={{marginLeft:8}} />}
                 title="Send"
+                iconRight
               />
+       
       </KeyboardAvoidingView>
      
     </View>
