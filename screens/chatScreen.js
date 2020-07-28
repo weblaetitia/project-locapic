@@ -70,14 +70,7 @@ export default function ChatScreen() {
       </ScrollView>
       <KeyboardAvoidingView style={styles.fullWidth} >
         <Input placeholder='type your message here' style={styles.fullWidth} />
-        <Button
-                icon={
-                  <MaterialCommunityIcons
-                    name="send"
-                    size={15}
-                    color="white"
-                  />
-                }
+        <Button icon={ <MaterialCommunityIcons name="send" size={15} color="white" />}
                 title="Send"
               />
       </KeyboardAvoidingView>
