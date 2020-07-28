@@ -1,8 +1,6 @@
 import React from 'react';
 import { StyleSheet, ImageBackground } from 'react-native';
-
 import { FontAwesome } from '@expo/vector-icons'; 
-
 import { Input, Button } from 'react-native-elements';
 
 export default function HomeScreen({navigation}) {
