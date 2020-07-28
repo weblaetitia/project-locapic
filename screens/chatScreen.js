@@ -68,8 +68,8 @@ export default function ChatScreen() {
         ))
       }
       </ScrollView>
-      <KeyboardAvoidingView style={styles.fullWidth} >
-        <Input placeholder='type your message here' style={styles.fullWidth} />
+      <KeyboardAvoidingView behavior="padding" enabled style={styles.fullWidth} >
+        <Input placeholder='type your message here' containerStyle={{width:'80%', marginTop:'10px', marginBottom:'10px'}} />
         <Button icon={ <MaterialCommunityIcons name="send" size={15} color="white" />}
                 title="Send"
               />
@@ -81,9 +81,7 @@ export default function ChatScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1
   },
   fullWidth: {
     width: '100%'
