@@ -11,7 +11,13 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
   const [position, setPosition] = useState(null)
   const [overlayVisibility, setOverlayVisibility] = useState(false)
+  const [addPoi, setAddPoi] = useState(false)
+  const [poiCoord, setPoiCoord] = useState(null)
+  const [poiTitle, setPoiTitle] = useState('')
+  const [poiDescription, setPoiDescription] = useState('')
+  const [poiList, setPoiList] = useState([])
 
+  
   useEffect(() => {
     async function askPermisions() {
       var {status} = await Permissions.askAsync(Permissions.LOCATION)
@@ -25,10 +31,44 @@ import { FontAwesome5 } from '@expo/vector-icons';
     askPermisions()
   }, [])
 
-  // set Overlay 
-  // const openOverlay = () => {
-  //   setOverlayVisibility(true)
-  // }
+  // add poi when press
+  const addCoordinates = (coord) => {
+    if (addPoi == true) {
+      setOverlayVisibility(true)
+      setPoiCoord(coord)
+      setAddPoi(false)
+    } 
+    console.log(poiList)
+  } 
+
+  // click sur modal btn
+  const addNewPoi = () => {
+    newPoi = {
+      title: poiTitle,
+      description: poiDescription,
+      latitude: poiCoord.latitude,
+      longitude: poiCoord.longitude
+    }
+    setPoiList([...poiList, newPoi])
+    console.log(newPoi)
+    setOverlayVisibility(false)
+  }
+  
+
+  // set Markers
+  if (poiList != null) {
+    var markerList = poiList.map((poi, i) => {
+    return (
+      <Marker key={i} coordinate={{ latitude: poi.latitude, longitude: poi.longitude }}
+                    title={poi.title}
+                    description={poi.description}
+                    pinColor='#130f40'
+                    />
+    )
+  })
+  }
+  
+ 
 
   if (position == null) {
     return (
@@ -44,6 +84,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421,
                   }}
+                  onPress={(coord) => addCoordinates(coord.nativeEvent.coordinate)}
                   >
             <Marker coordinate={{ latitude: position.coords.latitude, longitude: position.coords.longitude }}
                     title='hello'
@@ -51,10 +92,10 @@ import { FontAwesome5 } from '@expo/vector-icons';
                     pinColor='#eb4d4b'
                     // icon={<FontAwesome5 name="map-marker-alt" size={24} color="red" />}
                     />   
-                         
+            {markerList}             
           </MapView>
           <View style={styles.btnPoiContainer}>
-            <Button onPress={ () => setOverlayVisibility(true)}
+            <Button onPress={ () => setAddPoi(true)}
                     title='Add point of interest' 
                     buttonStyle={{backgroundColor:'#eb4d4b'}} 
                     icon={
@@ -75,10 +116,11 @@ import { FontAwesome5 } from '@expo/vector-icons';
             height="auto"
           >
             <View>
-               <Input placeholder='Titre'/>
-                <Input placeholder='Description'/>
+               <Input placeholder='Titre' onChangeText={(e) => setPoiTitle(e)}/>
+                <Input placeholder='Description' onChangeText={(e) => setPoiDescription(e)}/>
                 <Button title='Add point of interest' 
                         buttonStyle={{backgroundColor:'#eb4d4b'}} 
+                        onPress={() =>addNewPoi()}
                         />
             </View>
            
