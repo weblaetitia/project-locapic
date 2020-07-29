@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import MapScreen from '../screens/mapScreen'
 import ChatScreen from '../screens/chatScreen'
+import poiScreen from '../screens/poiScreen'
 
 import { FontAwesome } from '@expo/vector-icons'; 
 import { Entypo } from '@expo/vector-icons'; 
@@ -23,6 +24,12 @@ export default function BottomTabNavigator() {
           tabBarLabel: 'Map',
           tabBarIcon: ({ color, size }) => (
             <FontAwesome name="location-arrow" size={size} color={color} />
+          ),
+        }}/>
+    <Tab.Screen name="Poi" component={poiScreen} options={{
+          tabBarLabel: 'POI',
+          tabBarIcon: ({ color, size }) => (
+            <Entypo name="heart" color={color} size={size} />
           ),
         }}/>
     <Tab.Screen name="Chat" component={ChatScreen} options={{
