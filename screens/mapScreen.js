@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Overlay, Input } from 'react-native-elements';
 import MapView, {Marker} from 'react-native-maps'
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
@@ -10,6 +10,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
  function MapScreen({navigation}) {
 
   const [position, setPosition] = useState(null)
+  const [overlayVisibility, setOverlayVisibility] = useState(false)
 
   useEffect(() => {
     async function askPermisions() {
@@ -23,6 +24,11 @@ import { FontAwesome5 } from '@expo/vector-icons';
     }
     askPermisions()
   }, [])
+
+  // set Overlay 
+  // const openOverlay = () => {
+  //   setOverlayVisibility(true)
+  // }
 
   if (position == null) {
     return (
@@ -48,7 +54,8 @@ import { FontAwesome5 } from '@expo/vector-icons';
                          
           </MapView>
           <View style={styles.btnPoiContainer}>
-            <Button title='Add point of interest' 
+            <Button onPress={ () => setOverlayVisibility(true)}
+                    title='Add point of interest' 
                     buttonStyle={{backgroundColor:'#eb4d4b'}} 
                     icon={
                     <FontAwesome5
@@ -59,6 +66,23 @@ import { FontAwesome5 } from '@expo/vector-icons';
                     /> }
                     iconRight/> 
           </View>
+          <Overlay
+            isVisible={overlayVisibility}
+            onBackdropPress={() => setOverlayVisibility(false)}
+            windowBackgroundColor="rgba(255, 255, 255, .8)"
+            overlayBackgroundColor="#ffffff"
+            width="auto"
+            height="auto"
+          >
+            <View>
+               <Input placeholder='Titre'/>
+                <Input placeholder='Description'/>
+                <Button title='Add point of interest' 
+                        buttonStyle={{backgroundColor:'#eb4d4b'}} 
+                        />
+            </View>
+           
+          </Overlay>
         </View>
     );
   }
@@ -76,6 +100,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height,
   },
   btnPoiContainer: {
+    width: (Dimensions.get('window').width) -20,
     position: 'absolute',
     bottom: 15, 
     alignSelf: 'center'
