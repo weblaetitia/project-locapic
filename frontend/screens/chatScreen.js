@@ -34,7 +34,7 @@ function ChatScreen({pseudo}) {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.fullWidth}>
+      <ScrollView style={styles.chat}>
       {
         listMessage.map((element, i) => (
           <ListItem
@@ -67,10 +67,15 @@ function ChatScreen({pseudo}) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#fff'
   },
   fullWidth: {
     width: '100%'
+  }, 
+  chat: {
+    width: '100%',
+    paddingTop: 75
   }
 
 })
