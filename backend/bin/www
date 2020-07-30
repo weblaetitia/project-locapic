@@ -31,7 +31,6 @@ var io = require('socket.io')(server);
 io.on('connection', function(socket){
   console.log('a user connected')
   socket.on('sendMessage', function(message) { // recoit le message
-    console.log(message)
     io.emit('sendMessageToAll', message); // renvoi vers touts les utilisateurs connectés
   });
 });

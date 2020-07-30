@@ -21,6 +21,10 @@ export default function ChatScreen() {
     
   }, [listMessage]);
 
+  const sendMessageToBack = () => {
+    socket.emit('sendMessage', currentMessage)
+    setCurrentMessage('')
+  }
 
   return (
     <View style={styles.container}>
@@ -38,13 +42,15 @@ export default function ChatScreen() {
       }
       </ScrollView>
       <KeyboardAvoidingView behavior="padding" enabled style={styles.fullWidth} >
-        <Input placeholder='type your message here' containerStyle={{width:'80%',marginVertical:10, marginHorizontal:'auto'}} 
+        <Input placeholder='type your message here' 
+        value={currentMessage} 
+        containerStyle={{width:'80%',marginVertical:10, marginHorizontal:'auto'}} 
                 onChangeText={(e) => setCurrentMessage(e)}
         />
         <Button icon={ <MaterialCommunityIcons name="send" size={15} color="white" style={{marginLeft:8}} />}
                 title="Send"
                 iconRight
-                onPress={()=> socket.emit('sendMessage', currentMessage) }
+                onPress={()=> sendMessageToBack() }
               />
        
       </KeyboardAvoidingView>
