@@ -9,7 +9,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import {connect} from 'react-redux'
 
 
- function MapScreen({onSubmitPoi}) {
+ function MapScreen({onSubmitPoi, poi}) {
 
   const [position, setPosition] = useState(null)
   const [overlayVisibility, setOverlayVisibility] = useState(false)
@@ -18,6 +18,14 @@ import {connect} from 'react-redux'
   const [poiTitle, setPoiTitle] = useState('')
   const [poiDescription, setPoiDescription] = useState('')
   const [poiList, setPoiList] = useState([])
+
+  // // mettre liste des poi à jour 
+  // useEffect(() => {
+  //   function updatePoi() {
+  //     setPoiList(poi)
+  //   }
+  //   updatePoi()
+  // }, [poiList])
 
   
   useEffect(() => {
@@ -45,7 +53,7 @@ import {connect} from 'react-redux'
 
   // click sur modal btn
   const addNewPoi = () => {
-    newPoi = {
+    var newPoi = {
       title: poiTitle,
       description: poiDescription,
       latitude: poiCoord.latitude,
@@ -66,8 +74,8 @@ import {connect} from 'react-redux'
   }, [poiList])
 
   // set Markers
-  if (poiList != null) {
-    var markerList = poiList.map((poi, i) => {
+  if (poi != null) {
+    var markerList = poi.map((poi, i) => {
     return (
       <Marker key={i} coordinate={{ latitude: poi.latitude, longitude: poi.longitude }}
                     title={poi.title}
@@ -161,6 +169,11 @@ const styles = StyleSheet.create({
 
 
 /* REDUX */
+// get list from store
+function mapStateToProps(state) {
+  return { poi: state.poi }
+}
+
 function mapDispatchToProps(dispatch) {
   return{
     onSubmitPoi: function(poi) {
@@ -170,7 +183,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-  null, 
+  mapStateToProps, 
   mapDispatchToProps
 )(MapScreen);
 
