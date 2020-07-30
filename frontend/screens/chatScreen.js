@@ -22,13 +22,15 @@ function ChatScreen({pseudo}) {
   }, [listMessage]);
 
   const sendMessageToBack = () => {
-    var message = {
-      message: currentMessage,
-      pseudo: pseudo
+    if (currentMessage != '') {
+      var message = {
+        message: currentMessage,
+        pseudo: pseudo
+      }
+      console.log(message)
+      socket.emit('sendMessage', message)
+      setCurrentMessage('')
     }
-    console.log(message)
-    socket.emit('sendMessage', message)
-    setCurrentMessage('')
   }
 
   // messages loop
