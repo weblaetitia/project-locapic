@@ -19,13 +19,6 @@ import {connect} from 'react-redux'
   const [poiDescription, setPoiDescription] = useState('')
   const [poiList, setPoiList] = useState([])
 
-  // // mettre liste des poi à jour 
-  // useEffect(() => {
-  //   function updatePoi() {
-  //     setPoiList(poi)
-  //   }
-  //   updatePoi()
-  // }, [poiList])
 
   
   useEffect(() => {
