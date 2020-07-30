@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, View, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, View, KeyboardAvoidingView, SafeAreaView } from 'react-native';
 import { ListItem, Input, Button } from 'react-native-elements'
 import { ScrollView } from 'react-native-gesture-handler';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -53,10 +53,9 @@ function ChatScreen({pseudo}) {
 
   
   return (
-    <View style={styles.container}>
-      <ScrollView style={styles.chat}>
-      {messageLoop
-      }
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+      {messageLoop}
       </ScrollView>
       <KeyboardAvoidingView behavior="padding" enabled style={styles.fullWidth} >
         <Input placeholder='type your message here' 
@@ -72,7 +71,7 @@ function ChatScreen({pseudo}) {
        
       </KeyboardAvoidingView>
      
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -83,12 +82,7 @@ const styles = StyleSheet.create({
   },
   fullWidth: {
     width: '100%'
-  }, 
-  chat: {
-    width: '100%',
-    paddingTop: 75
   }
-
 })
 
 
