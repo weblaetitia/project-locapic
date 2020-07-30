@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, View, Text, KeyboardAvoidingView, SafeAreaView } from 'react-native';
 import { ListItem, Input, Button } from 'react-native-elements'
 import { ScrollView } from 'react-native-gesture-handler';
 import { FontAwesome5 } from '@expo/vector-icons'; 
@@ -11,7 +11,7 @@ function poiScreen(props) {
   
   console.log('poiScreen: ', props.poi)
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ScrollView style={styles.list}>
       {
         props.poi.map((l, i) => (
@@ -27,17 +27,13 @@ function poiScreen(props) {
       </ScrollView>
       
      
-    </View>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
     container: {
       flex: 1
-    },
-    list :{
-        width: '100%',
-        marginTop: 30
     }
   })
 
