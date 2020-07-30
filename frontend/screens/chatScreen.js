@@ -3,6 +3,7 @@ import { StyleSheet, View, KeyboardAvoidingView } from 'react-native';
 import { ListItem, Input, Button } from 'react-native-elements'
 import { ScrollView } from 'react-native-gesture-handler';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import {connect} from 'react-redux'
 
 // import socket.io
 import socketIOClient from "socket.io-client"
@@ -10,7 +11,7 @@ import socketIOClient from "socket.io-client"
 var socket = socketIOClient("http://10.2.3.55:3000/")
 
 
-export default function ChatScreen() {
+function ChatScreen({pseudo}) {
   const [currentMessage, setCurrentMessage] = useState('')
   const [listMessage, setListMessage] = useState([])
 
@@ -22,7 +23,12 @@ export default function ChatScreen() {
   }, [listMessage]);
 
   const sendMessageToBack = () => {
-    socket.emit('sendMessage', currentMessage)
+    var message = {
+      message: currentMessage,
+      pseudo: pseudo
+    }
+    console.log(message)
+    socket.emit('sendMessage', message)
     setCurrentMessage('')
   }
 
@@ -30,12 +36,12 @@ export default function ChatScreen() {
     <View style={styles.container}>
       <ScrollView style={styles.fullWidth}>
       {
-        listMessage.map((l, i) => (
+        listMessage.map((element, i) => (
           <ListItem
             style={styles.fullWidth}
             key={i}
-            title={l}
-            subtitle='John'
+            title={element.message}
+            subtitle={element.pseudo}
             bottomDivider
           />
         ))
@@ -68,3 +74,17 @@ const styles = StyleSheet.create({
   }
 
 })
+
+
+/* REDUX */
+
+// get pseudo from store
+function mapStateToProps(state) {
+  return { pseudo: state.pseudo }
+}
+
+
+
+export default connect(
+  mapStateToProps, null
+  )(ChatScreen)
