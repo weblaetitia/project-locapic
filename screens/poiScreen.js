@@ -15,15 +15,10 @@ function poiScreen(props) {
       <ScrollView style={styles.list}>
       {
         props.poi.map((l, i) => (
-          <ListItem
-            key={i}
+          <ListItem key={i}
             title={l.title}
             subtitle={l.description}
-            rightIcon={<FontAwesome5
-                name="trash-alt"
-                size={20}
-                color="grey"
-                onPress={() => props.deletePoi(i)}
+            rightIcon={<FontAwesome5 name="trash-alt" size={20} color="grey" onPress={() => props.deletePoi(i)}
               />}
             bottomDivider
           />
@@ -33,7 +28,7 @@ function poiScreen(props) {
       
      
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -44,7 +39,6 @@ const styles = StyleSheet.create({
         width: '100%',
         marginTop: 30
     }
-  
   })
 
 /* REDUX */
@@ -65,6 +59,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-    mapStateToProps, 
-    mapDispatchToProps
+    mapStateToProps, mapDispatchToProps
 )(poiScreen);
