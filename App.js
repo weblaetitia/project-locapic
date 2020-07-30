@@ -13,8 +13,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
 import pseudo from './reducers/pseudo.reducer'
+import poi from './reducers/poi.reducer'
 
-const store = createStore(combineReducers({ pseudo }));
+const store = createStore(combineReducers({ pseudo, poi }));
 
 
 function App() {

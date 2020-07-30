@@ -6,8 +6,10 @@ import MapView, {Marker} from 'react-native-maps'
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import { FontAwesome5 } from '@expo/vector-icons'; 
+import {connect} from 'react-redux'
 
- function MapScreen({navigation}) {
+
+ function MapScreen({onSubmitPoi}) {
 
   const [position, setPosition] = useState(null)
   const [overlayVisibility, setOverlayVisibility] = useState(false)
@@ -52,8 +54,16 @@ import { FontAwesome5 } from '@expo/vector-icons';
     setPoiList([...poiList, newPoi])
     console.log(newPoi)
     setOverlayVisibility(false)
+    onSubmitPoi(poiList)
   }
   
+  // wait for poilList update tend to props
+  useEffect(() => {
+    async function sendToProp() {
+      onSubmitPoi(poiList)
+    }
+    sendToProp()
+  }, [poiList])
 
   // set Markers
   if (poiList != null) {
@@ -150,7 +160,18 @@ const styles = StyleSheet.create({
 })
 
 
+/* REDUX */
+function mapDispatchToProps(dispatch) {
+  return{
+    onSubmitPoi: function(poi) {
+      dispatch( {type: 'savePoi', poi: poi})
+    }
+  }
+}
 
+export default connect(
+  null, 
+  mapDispatchToProps
+)(MapScreen);
 
-// keep export at the end
-export default MapScreen
+/* REDUX  */
