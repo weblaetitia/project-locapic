@@ -1,5 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {View} from 'react-native'
 
 import MapScreen from '../screens/mapScreen'
 import ChatScreen from '../screens/chatScreen'
@@ -9,17 +10,23 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons'; 
 
 
+
+
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabNavigator() {
   return (
-    <Tab.Navigator tabBarOptions={{
-        activeTintColor: '#eb4d4b',
-        inactiveTintColor: '#FFFFFF',
-        activeBackgroundColor: '#130f40',
-        inactiveBackgroundColor: '#130f40'
-      }}
-      >
+  <Tab.Navigator tabBarOptions={{
+    activeTintColor: '#eb4d4b',
+    inactiveTintColor: '#FFFFFF',
+    activeBackgroundColor: '#130f40',
+    inactiveBackgroundColor: '#130f40',
+    safeAreaInset: { bottom: 'never', top: 'never' } ,
+    style: {
+      backgroundColor: '#130f40'
+    }
+  }}
+  >
     <Tab.Screen name="Map" component={MapScreen} options={{
           tabBarLabel: 'Map',
           tabBarIcon: ({ color, size }) => (
