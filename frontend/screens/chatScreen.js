@@ -31,19 +31,31 @@ function ChatScreen({pseudo}) {
     setCurrentMessage('')
   }
 
+  // messages loop
+  var messageLoop = listMessage.map(function(element, i) {
+    // moderate messages' text
+    var smile = ':)';
+    var unsmile = ':(';
+    var tongue = ':p';
+    var fuck = /(fuck\S+)|(fuck)/ig;
+    var modifyMessage = element.message.replace(smile, "\u263A")
+    modifyMessage = modifyMessage.replace(unsmile, "\u2639")
+    modifyMessage = modifyMessage.replace(tongue, "\uD83D\uDE1B")
+    modifyMessage = modifyMessage.replace(fuck, "\u2022\u2022\u2022")
+    return (<ListItem
+      style={styles.fullWidth}
+      key={i}
+      title={modifyMessage}
+      subtitle={element.pseudo}
+      bottomDivider
+    />)
+  })
+
+  
   return (
     <View style={styles.container}>
       <ScrollView style={styles.chat}>
-      {
-        listMessage.map((element, i) => (
-          <ListItem
-            style={styles.fullWidth}
-            key={i}
-            title={element.message}
-            subtitle={element.pseudo}
-            bottomDivider
-          />
-        ))
+      {messageLoop
       }
       </ScrollView>
       <KeyboardAvoidingView behavior="padding" enabled style={styles.fullWidth} >
