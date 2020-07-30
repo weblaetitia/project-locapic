@@ -31,9 +31,17 @@ var io = require('socket.io')(server);
 io.on('connection', function(socket){
   console.log('a user connected')
   socket.on('sendMessage', function(message) { // recoit le message
-    console.log(message.message)
-    console.log(message.pseudo)
-    io.emit('sendMessageToAll', message); // renvoi vers touts les utilisateurs connectés
+    var smile = ':)';
+    var unsmile = ':(';
+    var tongue = ':p';
+    var modifyMessage = message.message.replace(smile, "\u263A")
+    modifyMessage = modifyMessage.replace(unsmile, "\u2639")
+    modifyMessage = modifyMessage.replace(tongue, "\uD83D\uDE1B")
+    var newMessage = {
+      message: modifyMessage,
+      pseudo: message.pseudo
+    }
+    io.emit('sendMessageToAll', newMessage); // renvoi vers touts les utilisateurs connectés
   });
 });
 

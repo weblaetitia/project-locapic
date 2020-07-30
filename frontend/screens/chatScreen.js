@@ -19,7 +19,6 @@ function ChatScreen({pseudo}) {
     socket.on('sendMessageToAll', (message)=> {
       setListMessage([...listMessage, message])
     });
-    
   }, [listMessage]);
 
   const sendMessageToBack = () => {
